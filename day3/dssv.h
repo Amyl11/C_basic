@@ -17,7 +17,7 @@ struct vector {
 
 struct vector *vcreate(int n);
 void vreserve(struct vector *v, int new_cap);
-void vappend(struct vector *v, struct sinh_vien value);
+void vappend(struct vector *v, vec_elem_t value);
 void vresize(struct vector *v, int newsize);
 void vfree(struct vector *v);
 void vscan_elem(vec_elem_t *e);
