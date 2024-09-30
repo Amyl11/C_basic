@@ -47,7 +47,7 @@ void vfree(struct vector *v) {
 }
 
 void vscan_elem(vec_elem_t *e) {
-    scanf("%d,%9[^,],%100[^,],%f", &e->stt, &e->mssv, &e->hoten, &e->hp);
+    scanf("%d,%9[^,],%100[^,],%f", &e->stt, e->mssv, e->hoten, &e->hp);
 }
 
 void vprint_elem(vec_elem_t *e) {
