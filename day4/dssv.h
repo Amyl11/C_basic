@@ -24,7 +24,7 @@ void vfree(struct vector *v);
 void vscan_elem(vec_elem_t *e);
 void vprint_elem(vec_elem_t *e);
 
-
+void vparse_marked();
 
 void vswap(vec_elem_t *e, vec_elem_t *t);
 void vsort(struct vector *v);
