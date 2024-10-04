@@ -30,7 +30,10 @@ struct vector *vparse_marked();
 void vsort(struct vector *v, int (*order)(const void *, const void *));
 int hpdecrease(const void *a, const void *b);
 
+
 void vsearch(struct vector *v, char key[]);
+int readfor_search(char **data);
+
 
 void solve(void);
 

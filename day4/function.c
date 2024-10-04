@@ -101,6 +101,20 @@ void vsearch(struct vector *v, char key[]) {
     }
 }
 
+int readfor_search(char **data) {
+    int count = 0;
+    while(1) {
+        char tmp[150];
+        scanf("%[^\n]%*c", tmp);
+        if(strcmp(tmp, "*****") == 0) {
+            break;
+        }
+        strcpy(data[count], tmp);
+        count++;
+    }
+    return count;
+}
+
 void solve() {
     struct vector *v = vparse_marked();
     vsort(v, hpdecrease);
@@ -110,17 +124,23 @@ void solve() {
     }
 
     char **data = (char **)malloc(v->sz * sizeof(char *));
-    int count = 0;
-    while(1) {
-        char tmp[150];
-        scanf("%[^\n]%*c", tmp);
-        if(strcmp(tmp, "*****") == 0) {
-            break;
-        }
-        data[count] = (char *)malloc((strlen(tmp)+1) * sizeof(char));
-        strcpy(data[count], tmp);
-        count++;
+    for(int i = 0; i < v->sz; i++) {
+        data[i] = (char *)malloc(150 * sizeof(char));
     }
+
+    int count = readfor_search(data);
+
+    // int count = 0;
+    // while(1) {
+    //     char tmp[150];
+    //     scanf("%[^\n]%*c", tmp);
+    //     if(strcmp(tmp, "*****") == 0) {
+    //         break;
+    //     }
+    //     data[count] = (char *)malloc((strlen(tmp)+1) * sizeof(char));
+    //     strcpy(data[count], tmp);
+    //     count++;
+    // }
     printf("%d\n", count);
     for(int i=0; i<=count; i++) {
         vsearch(v, data[i]);
