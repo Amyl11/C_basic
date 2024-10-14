@@ -1,12 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct slist_elem_t {
-    int x;
-    int y;
-};
-
-typedef struct slist_elem_t slist_elem_t;
+typedef int slist_elem_t;
 
 struct snode {
     slist_elem_t data;
@@ -78,15 +73,15 @@ int smt(struct slist *list) {
     return 1;
 }
 
-// void slist_pprint(struct slist *list) {
-//     printf("len: %d\n", list->len);
-//     struct snode *n = list->head;
-//     while(n) {
-//         printf(" %.2f", n->data);
-//         n = n->next;
-//     }
-//     printf("\n");
-// }
+void slist_pprint(struct slist *list) {
+    printf("len: %d\n", list->len);
+    struct snode *n = list->head;
+    while(n) {
+        printf(" %d", n->data);
+        n = n->next;
+    }
+    printf("\n");
+}
 
 void sdel(struct slist *list) {
     struct snode *n = list->head;

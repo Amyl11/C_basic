@@ -17,3 +17,11 @@ output:
 1 2
 
 yêu cầu sử dụng danh sách móc nối đơn
+
+cho triển khai danh sách móc nối đơn kiểu int
+triển khia hàm struct slist *sparse_marked();
+đọc vào một dãy số nguyên dương kết thúc bằng -1
+trả về đối tượng slist chứa dãy số đó
+ví dụ input:
+2 1 3 5 6 -1
+output: danh sách slist chứa 5 phần tử 2 1 3 5 6
