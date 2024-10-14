@@ -1,0 +1,19 @@
+cho ma trận EWSN, tìm đường đi từ x1,y1 đến x2,y2
+13 = 0x1101, nghĩa là có tường ở E, W, N.
+
+viết chương trình nhập một dãy tọa độ trên mp, dừng khi gặp 0,0
+in ra số lượng điểm đã nhập và danh sách các điểm đã nhập theo thứ tự ngược lại
+mỗi mục dữ liệu trên 1 dòng
+
+ví dụ:
+1 2
+3 5
+6 7
+0 0
+output:
+3
+6 7
+3 5
+1 2
+
+yêu cầu sử dụng danh sách móc nối đơn
