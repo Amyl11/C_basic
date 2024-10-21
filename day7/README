@@ -1,0 +1,162 @@
+hôm nay làm bài luyện tập 3h20min
+
+ex1
+Cần thống kê xem mỗi ngày có bao nhiêu lượt sinh viên làm trắc nghiệm.
+Input
+Thông tin về sinh viên làm trắc nghiệm ôn tập được cho theo các dòng định dạng như sau:
+<yyyy-mm-dd> <hh:mm:ss> <user_id> <question_id>: trong đó sinh viên có mã <user_id> làm câu hỏi <question_id> vào ngày giờ là <yyyy-mm-dd> <hh:mm:ss>
+Kết thúc dữ liệu là 1 dòng chứa dấu *
+Output
+Mỗi dòng ghi <yyyy-mm-dd> <cnt>: trong đó <cnt> là số lượt sinh viên làm trắc nghiệm trong ngày <yyyy-mm-dd>
+(chú ý: các dòng được sắp xếp theo thứ tự tăng dần của ngày thống kê, ngày thống kê nào mà không có lượt sinh viên làm trắc nghiệm thì không in ra)
+Example
+Input
+2022-01-02 10:30:24 dungpq question1
+2022-01-03 11:30:24 dungpq question1
+2022-02-01 03:30:20 viettq question2
+2022-02-01 03:35:20 viettq question1
+2022-03-01 03:30:20 viettq question7
+2022-01-02 11:20:24 viettq question2
+*
+Output
+2022-01-02 2
+2022-01-03 1
+2022-02-01 2
+2022-03-01 1
+
+ex2
+Viết chương trình thực hiện công việc sau:
+Xây dựng danh sách liên kết với các khóa được cung cấp ban đầu là dãy a1, a2, …, an, sau đó thực hiện các thao tác trên danh sách bao gồm: thêm 1 phần tử vào đầu, vào cuối danh sách, hoặc vào trước, vào sau 1 phần tử nào đó trong danh sách, hoặc loại bỏ 1 phần tử nào đó trong danh sách
+ 
+Input
+Dòng 1: ghi số nguyên dương n (1 <= n <= 1000)
+Dòng 2: ghi các số nguyên dương a1, a2, …, an.
+Các dòng tiếp theo lần lượt là các lệnh để thao tác (kết thúc bởi ký hiệu #) với các loại sau:
+addlast k: thêm phần tử có key bằng k vào cuối danh sách (nếu k chưa tồn tại)
+addfirst k: thêm phần tử có key bằng k vào đầu danh sách (nếu k chưa tồn tại)
+addafter u v: thêm phần tử có key bằng u vào sau phần tử có key bằng v trên danh sách (nếu v đã tồn tại trên danh sách và u chưa tồn tại)
+addbefore u v: thêm phần tử có key bằng u vào trước phần tử có key bằng v trên danh sách (nếu v đã tồn tại trên danh sách và u của tồn tại)
+remove k: loại bỏ phần tử có key bằng k khỏi danh sách
+reverse: đảo ngược thứ tự các phần tử của danh sách (không được cấp phát mới các phần tử, chỉ được thay đổi mối nối liên kết)
+Output
+Ghi ra dãy khóa của danh sách thu được sau 1 chuỗi các lệnh thao tác đã cho
+ 
+Example
+Input
+5
+5 4 3 2 1
+addlast 3
+addlast 10
+addfirst 1
+addafter 10 4
+remove 1
+#
+ 
+Output
+5 4 3 2 10
+
+ex3
+Perform a sequence of operations over a queue, each element is an integer:
+ENQ v: ENQ a value v into the queue
+DEQ: remove an element out of the queue and print this element to stdout (print NULL if the queue is empty)
+Input
+Each line contains a command (operration) of type
+ENQ  v
+DEQ
+Output
+Write the results of DEQ operations (each result is written in a line)
+Example
+Input
+ENQ 1
+ENQ 2
+ENQ 3
+DEQ
+DEQ
+ENQ 4
+ENQ 5
+DEQ
+#
+Output
+1
+2
+3
+
+Input
+ENQ 1
+DEQ
+DEQ
+ENQ 4
+DEQ
+#
+Output
+1
+NULL
+4
+
+ex4
+Perform a sequence of operations over a stack, each element is an integer:
+PUSH v: push a value v into the stack
+POP: remove an element out of the stack and print this element to stdout (print NULL if the stack is empty)
+Input
+Each line contains a command (operration) of type
+PUSH v
+POP
+Output
+Write the results of POP operations (each result is written in a line)
+Example
+Input
+PUSH 1
+PUSH 2
+PUSH 3
+POP
+POP
+PUSH 4
+PUSH 5
+POP
+#
+Output
+3
+2
+5
+
+ex5
+The data about bank transactions consists of a sequence of transactions: the information of each transaction has the following format:
+<from_account> <to_account> <money> <time_point> <atm>
+In which:
+• <from_account>: the account from which money is transferred (which is a string of length from 6 to 20 )
+• <to_account>: the account which receives money in the transaction (which is a string of length from 6 to 20)
+• <money>: amount of money transferred in the transaction (which is an integer from 1 to 10000)
+• <time_point>: the time point at which the transaction is performed, it is a string under the format HH:MM:SS (hour: minute: second)
+• <atm>: the code of the ATM where the transaction is taken (a string of length from 3 to 10)
+Example: T00112233445 T001234002 2000 08:36:25 BIDV (at the ATM BIDV, account T00112233445 transfers 2000$ to account T001234002 at time point 08:36:25 (08 hour, 36 minutes, 25 seconds)
+A transaction cycle of length k starting from account a1 is defined to be a sequence of distinct account a1, a2, …, ak in which there are transactions from account a1 to a2, from a2 to a3, …, from ak to a1.
+Write a program that process the following queries:
+?total_money_transaction_from <account>: compute the total amount of money transferred from the account <account>
+Input (stdin)
+The input consists of 2 blocks of information: the data block and the query block
+• The data block consists of lines:
+o Each line contains the information about a transaction described above
+o The data is terminated by a line containing #
+• The query block consists of lines:
+o Each line is a query described above
+o The query block is terminated by a line containing #
+Output (stdout)
+• Print to stdout (in each line) the result of each query described above
+Example
+Input
+T000010010 T000010020 1000 10:20:30 ATM1
+T000010010 T000010030 2000 10:02:30 ATM2
+T000010010 T000010040 1500 09:23:30 ATM1
+T000010020 T000010030 3000 08:20:31 ATM1
+T000010030 T000010010 4000 12:40:00 ATM2
+T000010040 T000010010 2000 10:30:00 ATM1
+T000010020 T000010040 3000 08:20:31 ATM1
+T000010040 T000010030 2000 11:30:00 ATM1
+T000010040 T000010030 1000 18:30:00 ATM1
+#
+?total_money_transaction_from T000010010
+?total_money_transaction_from T000010030
+#
+Output
+4500
+4000
