@@ -26,7 +26,13 @@ Output
 
 ex2
 Viết chương trình thực hiện công việc sau:
-Xây dựng danh sách liên kết với các khóa được cung cấp ban đầu là dãy a1, a2, …, an, sau đó thực hiện các thao tác trên danh sách bao gồm: thêm 1 phần tử vào đầu, vào cuối danh sách, hoặc vào trước, vào sau 1 phần tử nào đó trong danh sách, hoặc loại bỏ 1 phần tử nào đó trong danh sách
+Xây dựng danh sách liên kết với các khóa được cung cấp ban đầu là dãy a1, a2, …, an,
+sau đó thực hiện các thao tác trên danh sách bao gồm:
+thêm 1 phần tử vào đầu,
+ vào cuối danh sách, 
+ hoặc vào trước, 
+ vào sau 1 phần tử nào đó trong danh sách, 
+ hoặc loại bỏ 1 phần tử nào đó trong danh sách
  
 Input
 Dòng 1: ghi số nguyên dương n (1 <= n <= 1000)

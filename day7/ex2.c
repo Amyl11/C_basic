@@ -1,152 +1,221 @@
-#include "slist.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
-int dupl(struct slist *list, int k) {
-    struct snode *n = list->head;
-    while(1) {
-        if(n->data == k) {
-            return 1;
-        }
-        if(n->next == NULL) {
-            return 0; 
-        }
-        n = n->next;
-    }
+struct node {
+    int data;
+    struct node *next;
+};
+
+struct sll {
+    struct node *head;
+    struct node *tail;
+    int len;
+};
+
+struct node *nnode(int n) {
+    struct node *nn = malloc(sizeof(struct node));
+    nn->data = n;
+    nn->next = NULL;
+    return nn;
 }
 
-struct slist *sdell(struct slist *list, int k){
-    if(list->head->data == k) {
-        sdelh(list);
+struct sll *nsll() {
+    struct sll *list = malloc(sizeof(struct sll));
+    list->head = NULL;
+    list->tail = NULL;
+    list->len = 0;
+    return list;
+}
+
+struct sll *append(struct sll *list, int n) {
+    struct node *nn = nnode(n);
+    if(list->len == 0) {
+        list->head = nn;
+    } else {
+        list->tail->next = nn;
+    }
+    list->tail = nn;
+    list->len++;
+    return list;
+}
+
+struct sll *preappend(struct sll *list, int n) {
+    struct node *nn = nnode(n);
+    if(list->len == 0) {
+        list->tail = nn;
+    } else {
+        nn->next = list->head;
+    }
+    list->head = nn;
+    list->len++;
+    return list;
+}
+
+int exist(struct sll *list, int n) {
+    struct node *tmp = list->head;
+    for(int i=0; i<list->len; i++) {
+        if(tmp->data == n) {
+            return 1; //mean exist;
+        }
+        tmp = tmp->next;
+    }
+    return 0; //mean not exist;
+}
+
+struct sll *addafter(struct sll *list, int u, int v) {
+    if(list->tail->data == v) {
+        append(list,u);
         return list;
     }
-    struct snode *n = list->head->next;
-    struct snode *ctr = list->head;
-    while(n != NULL) {
-        if(n->data == k) {
-            ctr->next = n->next;
-            if(n->next == NULL) {
-                list->tail = ctr;
+    if(exist(list, v) && !exist(list, u)) {
+        struct node *nu = nnode(u);
+        struct node *tmp = list->head;
+        for(int i=0; i<list->len; i++) {
+            if(tmp->data == v) {
+                nu->next = tmp->next;
+                tmp->next = nu;
+                list->len++;
+                return list;
             }
-            free(n);
+            tmp = tmp->next;
+        }
+    }
+    return list;
+}
+
+struct sll *addbefore(struct sll *list, int u, int v) {
+    if(list->head->data == v) {
+        preappend(list,u);
+        return list;
+    }
+    if(exist(list, v) && !exist(list, u)) {
+        struct node *nu = nnode(u);
+        struct node *tmp = list->head;
+        struct node *pre = NULL;
+        for(int i=0; i<list->len; i++) {
+            if(tmp->data == v) {
+                pre->next = nu;
+                nu->next = tmp;
+                list->len++;
+                return list;
+            }
+            pre = tmp;
+            tmp = tmp->next;
+        }
+    }
+    return list;
+}
+
+struct sll *nremove(struct sll *list, int n) {
+    if(list->head->data == n) {
+        struct node *tmp = list->head;
+        list->head = tmp->next;
+        free(tmp);
+        list->len--;
+        return list;
+    }
+    struct node *tmp = list->head;
+    struct node *pre = NULL;
+    for(int i=0; i<list->len; i++) {
+        if(tmp->data == n) {
+            if(tmp == list->tail) {
+                list->tail = pre;
+            }
+            pre->next = tmp->next;
+            free(tmp);
             list->len--;
             return list;
         }
-        ctr = n;
-        n = n->next;
+        pre = tmp;
+        tmp = tmp->next;
     }
     return list;
 }
 
-struct slist *saddbefore(struct slist *list, int k, int v) {
-    if(list->head->data == v) {
-        sprepend(list, k);
+struct sll *reverse(struct sll *list) {
+    if(list->len <= 1) {
         return list;
     }
-    struct snode *nn = snode(k);
-    struct snode *n = list->head->next;
-    struct snode *ctr = list->head;
-    while(n != NULL) {
-        if(n->data == v) {
-            ctr->next = nn;
-            nn->next = n;
-            list->len++;
-            return list;
-        }
-        ctr = n;
-        n = n->next;
-    }
-    return list;
-}
-
-struct slist *saddafter(struct slist *list, int k, int v) {
-    struct snode *nn = snode(k);
-    struct snode *n = list->head;
-    struct snode *ctr = list->head->next;
-    while(n != NULL) {
-        if(n->data == v) {
-            n->next = nn;
-            nn->next = ctr;
-            list->len++;
-            if(ctr == NULL) {
-                list->tail = nn;
-            }
-            return list;
-        }
-        n = n->next;
-        ctr = n->next;
-    }
-    return list;
-}
-
-struct slist *sreverse(struct slist *list) {
-    struct snode *n = list->head;
-    struct snode *pre = NULL;
-    struct snode *nxt = NULL;
+    struct node *tmp = list->head;
+    struct node *pre = NULL;
+    struct node *nxt = NULL;
     list->head = list->tail;
-    list->tail = n;
-    while(n != NULL) {
-        nxt = n->next;
-        n->next = pre;
-        pre = n;
-        n = nxt;
+    list->tail = tmp;
+    for(int i=0; i<list->len; i++) {
+        nxt = tmp->next;
+        tmp->next = pre;
+        pre = tmp;
+        tmp = nxt;
     }
     return list;
 }
 
-void srequest(struct slist *list) {
-    char request[100];
-    int k;
-    int v;
-    while(scanf("%s", request)) {
-        if(!strcmp(request, "#")) {
-            return;
-        }
-        if(!strcmp(request, "addlast")) {
-            scanf("%d", &k);
-            if(!dupl(list, k)) {
-                sappend(list, k);
-            }
-        }
-        if(!strcmp(request, "addfirst")) {
-            scanf("%d", &k);
-            if(!dupl(list, k)){
-                sprepend(list, k);
-            }
-        }
-        if(!strcmp(request, "remove")) {
-            scanf("%d", &k);
-            if(dupl(list, k)){
-                sdell(list, k);
-            }
-        }
-        if(!strcmp(request, "addbefore")) {
-            scanf("%d %d", &k, &v);
-            if(!dupl(list, k) && dupl(list, v)){
-                saddbefore(list, k, v);
-            }
-        }
-        if(!strcmp(request, "addafter")) {
-            scanf("%d %d", &k, &v);
-            if(!dupl(list, k) && dupl(list, v)){
-                saddafter(list, k, v);
-            }
-        }
-        if(!strcmp(request, "reverse")) {
-            sreverse(list);
-        }
+void sllprint(struct sll *list) {
+    struct node *n = list->head;
+    printf("len: %d\n", list->len);
+    for(int i=0; i<list->len; i++) {
+        printf("%d ", n->data);
+        n = n->next;
+    }
+    printf("\n");
+}
+
+struct sll *addlast(struct sll *list, int n) {
+    if(!exist(list,n)) {
+        append(list,n);
+    }
+}
+
+struct sll *addfirst(struct sll *list, int n) {
+    if(!exist(list,n)) {
+        preappend(list,n);
     }
 }
 
 int main() {
+    struct sll *list = nsll();
     int n;
     scanf("%d", &n);
-    struct slist *list = slist();
     for(int i=0; i<n; i++) {
-        slist_elem_t tmp;
+        int tmp;
         scanf("%d", &tmp);
-        sappend(list, tmp);
+        append(list, tmp);
     }
-    srequest(list);
-    slist_pprint(list);
-    sdel(list);
+    char input[20];
+    while(scanf("%s", input)) {
+        if(!strcmp(input, "#")) {
+            break;
+        }
+        if(!strcmp(input, "addlast")) {
+            int u;
+            scanf("%d", &u);
+            addlast(list,u);
+        }
+        if(!strcmp(input, "addfirst")) {
+            int u;
+            scanf("%d", &u);
+            addfirst(list,u);
+        }
+        if(!strcmp(input, "addafter")) {
+            int u;
+            int v;
+            scanf("%d %d", &u, &v);
+            addafter(list,u,v);
+        }
+        if(!strcmp(input, "addbefore")) {
+            int u;
+            int v;
+            scanf("%d %d", &u, &v);
+            addbefore(list,u,v);
+        }
+        if(!strcmp(input, "remove")) {
+            int u;
+            scanf("%d", &u);
+            nremove(list,u);
+        }if(!strcmp(input, "reverse")) {
+            reverse(list);
+        }
+    }
+    sllprint(list);
 }
