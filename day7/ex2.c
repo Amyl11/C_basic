@@ -165,12 +165,14 @@ struct sll *addlast(struct sll *list, int n) {
     if(!exist(list,n)) {
         append(list,n);
     }
+    return list;
 }
 
 struct sll *addfirst(struct sll *list, int n) {
     if(!exist(list,n)) {
         preappend(list,n);
     }
+    return list;
 }
 
 int main() {
